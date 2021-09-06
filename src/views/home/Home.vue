@@ -1,22 +1,28 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
-    <home-swiper :banner="banner"></home-swiper>
-    <recommend-view :recommend="recommend"></recommend-view>
-    <feature-view></feature-view>
-    <tab-control
-      class="tab-control"
-      :titles="['流行', '新款', '精选']"
-      @tabclick="tabclick"
-    />
-    <goods-list :goods="showGoods" />
-    <ul>
-      <!-- <li>商品</li>
-      <li>商品</li>
-      <li>商品</li>
-      <li>商品</li>
-      <li>商品</li> -->
-    </ul>
+    <scroll
+      class="content"
+      ref="scroll"
+      :probe-type="3"
+      @scroll="contentScroll"
+      :pull-up-load="true"
+      @pullingUp="loadMore"
+    >
+      <home-swiper :banner="banner"></home-swiper>
+      <recommend-view :recommend="recommend"></recommend-view>
+      <feature-view></feature-view>
+      <tab-control
+        class="tab-control"
+        :titles="['流行', '新款', '精选']"
+        @tabclick="tabclick"
+      />
+      <goods-list :goods="showGoods" />
+    </scroll>
+    <!-- 修饰.native
+            在需要监听一个组件的原生事件时，必须给对应的事件加上.native修饰符才能进行监听
+     -->
+    <back-top @click.native="backclick" v-show="isShowBackTop" />
   </div>
 </template>
 
@@ -28,6 +34,8 @@ import FeatureView from "./childComps/FeatureView";
 import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/tabControl/TabControl";
 import GoodsList from "components/content/goods/GoodsList";
+import Scroll from "components/common/scroll/Scroll";
+import BackTop from "components/content/backTop/BackTop";
 
 import { getHomeMultidata, getHomeGoods } from "network/home";
 
@@ -40,7 +48,9 @@ export default {
     NavBar,
     TabControl,
     getHomeGoods,
-    GoodsList
+    GoodsList,
+    Scroll,
+    BackTop
     // getHomeMultidata
   },
   data() {
@@ -52,12 +62,13 @@ export default {
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] }
       },
-      currentType:'pop'
+      currentType: "pop",
+      isShowBackTop: false
     };
   },
-  computed:{
-    showGoods(){
-      return this.goods[this.currentType].list
+  computed: {
+    showGoods() {
+      return this.goods[this.currentType].list;
     }
   },
   created() {
@@ -86,6 +97,9 @@ export default {
     /*
     事件监听方法
      */
+    contentScroll(position) {
+      this.isShowBackTop = -position.y > 1000;
+    },
     tabclick(index) {
       switch (index) {
         case 0:
@@ -98,6 +112,12 @@ export default {
           this.currentType = "sell";
           break;
       }
+    },
+    backclick() {
+      this.$refs.scroll.scrollTo(0, 0, 500);
+    },
+    loadMore() {
+      this.getHomeGoods(this.currentType)
     },
 
     /* 
@@ -115,16 +135,21 @@ export default {
       getHomeGoods(type, page).then(res => {
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
+
+        this.$refs.scroll.finishPullUp()
       });
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
 #home {
-  padding-top: 44px;
+  height: 100vh;
+  /* padding-top: 44px; */
+  position: relative;
 }
+
 .home-nav {
   background-color: var(--color-tint);
   color: #fff;
@@ -137,6 +162,19 @@ export default {
 .tab-control {
   position: sticky;
   top: 44px;
-  z-index: 8;
+  z-index: 9;
 }
+.content {
+  overflow: hidden;
+  position: absolute;
+  top: 44px;
+  bottom: 49px;
+  left: 0;
+  right: 0;
+}
+/* .content {
+  height: calc(100% - 93px);
+  overflow:hidden;
+  margin-top: 44px;
+} */
 </style>
