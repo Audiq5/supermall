@@ -7,8 +7,9 @@
       :probe-type="3"
       @scroll="contentScroll"
       :pull-up-load="true"
-      @pullingUp="loadMore"
+      
     >
+    <!-- @pullingUp="loadMore" -->
       <home-swiper :banner="banner"></home-swiper>
       <recommend-view :recommend="recommend"></recommend-view>
       <feature-view></feature-view>
@@ -116,9 +117,9 @@ export default {
     backclick() {
       this.$refs.scroll.scrollTo(0, 0, 500);
     },
-    loadMore() {
-      this.getHomeGoods(this.currentType)
-    },
+    // loadMore() {
+    //   this.getHomeGoods(this.currentType)
+    // },
 
     /* 
       网络请求
@@ -136,7 +137,7 @@ export default {
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
 
-        this.$refs.scroll.finishPullUp()
+        // this.$refs.scroll.finishPullUp()
       });
     }
   }

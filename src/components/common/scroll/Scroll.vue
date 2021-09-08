@@ -16,10 +16,10 @@ export default {
       type: Number,
       default: 0
     },
-    PullUpLoad: {
-      type: Boolean,
-      default: false
-    }
+    // PullUpLoad: {
+    //   type: Boolean,
+    //   default: false
+    // }
   },
   data() {
     return {
@@ -39,10 +39,10 @@ export default {
       this.scroll.on("scroll", position => {
         this.$emit("scroll", position);
       });
-    // 3.监听上拉事件
-    this.scroll.on("pullingUp", () => {
-      this.$emit("pullingUp");
-    });
+    // // 3.监听上拉事件
+    // this.scroll.on("pullingUp", () => {
+    //   this.$emit("pullingUp");
+    // });
   },
   methods: {
     scrollTo(x, y, time = 300) {
