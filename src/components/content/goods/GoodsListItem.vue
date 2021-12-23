@@ -1,6 +1,7 @@
 <template>
   <div class="goods-item">
-    <img :src="goodsItem.show.img" alt="" />
+    <!-- 拿到每一个小item的图片的地址 并展示-->
+    <img :src="goodsItem.show.img" alt="" @load="imgload">
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
       <span class="price">{{ goodsItem.price }}</span>
@@ -13,13 +14,20 @@
 export default {
   name: "GoodsListItem",
   props: {
+    // 从父组件goodslist拿到小item的数据
     goodsItem: {
       type: Object,
       default() {
         return {};
       }
     }
-  }
+  },
+  methods: {
+    imgload(){
+      // console.log('imgload');
+      this.$bus.$emit('itemImg')
+    }
+  },
 };
 </script>
 

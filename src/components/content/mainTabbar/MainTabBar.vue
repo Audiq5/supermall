@@ -1,5 +1,6 @@
 <template>
   <tab-bar>
+    <!-- 这里将每页的路径直接发送字符传给tabbaritem 做判断-->
     <tab-bar-item path="/home">
       <img slot="item-icon" src="~assets/img/tabbar/home.png" alt="">
       <img slot="item-icon-active" src="~assets/img/tabbar/home_active.png" alt="">

@@ -1,7 +1,8 @@
 <template>
   <div>
     <swiper>
-      <swiper-item v-for="(item, key) in banner" :key="key">
+      <swiper-item v-for="(item, id) in banner" :key="id">
+        <!-- 数据内有个link，是对应的链接 -->
         <a :href="item.link">
           <img :src="item.image" alt="" />
         </a>

@@ -1,47 +1,23 @@
 <template>
-  <div>
-    <scroll class="content"> 
+  <div class="wrapper">
+    <!-- <scroll class="content"> 
       <ul>
         <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
-        <li>个人信息</li>
+       
       </ul>
-    </scroll>
+    </scroll> -->
+    h3
   </div>
 </template>
 
 <script>
-import Scroll from "components/common/scroll/Scroll";
+// import Scroll from "components/common/scroll/Scroll";
 
 export default {
   name: "Profile",
-  components: {
-    Scroll
-  }
+  // components: {
+    // Scroll
+  // }
 };
 </script>
 

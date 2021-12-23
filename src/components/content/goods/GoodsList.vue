@@ -1,6 +1,7 @@
 <template>
   <div class="goods">
-    <goods-list-item v-for="(item, key) in goods" :key="key"  :goods-item="item"/>
+                                               <!--将每一个小item的数据传给子组件goods-item  -->
+    <goods-list-item v-for="(item, index) in goods" :key="index"  :goods-item="item"/>
     <!-- {{ goods }} -->
   </div>
 </template>
